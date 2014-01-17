@@ -8,7 +8,7 @@ function is_login()
         if (isset($_COOKIE['login']) && isset($_COOKIE['password'])) { //если cookie есть, то просто обновим время их жизни и вернём true
             SetCookie("login", "", time() - 1, '/');
             SetCookie("password", "", time() - 1, '/');
-            setcookie("login", $_COOKIE['login'], time() + 50000, '/');
+            setcookie("login", $_COOKIE['login'], time() + 50000, '/'); //TODO: переправить на 8 часов
             setcookie("password", $_COOKIE['password'], time() + 50000, '/');
             return true;
         } else //иначе добавим cookie с логином и паролем, чтобы после перезапуска браузера сессия не слетала
