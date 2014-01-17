@@ -1,5 +1,5 @@
 <?php
-session_start();
-session_destroy();
+include("lib/connect.php");
+include("lib/global.php");
+out();
 header("Location: login.html");
-exit;

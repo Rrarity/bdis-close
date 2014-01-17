@@ -1,9 +1,11 @@
 <?php
-session_start();
-if (isset($_SESSION['user'])) {
-    if ($_SESSION['user'] == "admin") {
+include("lib/connect.php");
+include("lib/global.php");
+
+if (is_login()) {
+    if (is_admin()) {
         header("Location: admin.html");
-    } else if ($_SESSION['user'] == "user") {
+    } else {
         header("Location: main.html");
     }
 } else {
