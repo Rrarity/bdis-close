@@ -11,9 +11,9 @@
     <!--<script src="js/kendo/kendo.web.min.js" ></script>-->
     <!--<script src="js/kendo/cultures/kendo.culture.ru-RU.min.js" ></script>-->
     <script src="js/noty/jquery.noty.js" ></script>
-    <script src="js/noty/layouts/top.js" ></script>
+    <!--<script src="js/noty/layouts/top.js" ></script>-->
     <script src="js/noty/layouts/topCenter.js" ></script>
-    <script src="js/noty/layouts/center.js" ></script>
+    <!--<script src="js/noty/layouts/center.js" ></script>-->
     <script src="js/noty/themes/default.js" ></script>
     <script src="js/base.js"></script>
     <script src="js/login/login.js"></script>

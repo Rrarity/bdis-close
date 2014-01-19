@@ -12,25 +12,29 @@
                 function(data) {
                     console.log(data);
                     if ("error" in data) {
-                        console.log(data.error);
-                        noty_error(data.error.join("<br>"));
+                        if (data.error.length > 0) {
+                            console.error(data.error);
+                            noty_error(data.error.join("<br>"));
+                        } else {
+                            location.href = BASE_URL;
+                            //location.reload();
+                        }
                     } else {
-                        location.href = BASE_URL;
-                        location.reload();
+                        noty_error("Ошибка ответа сервера");
                     }
                 }, "json");
-            event.preventDefault();
+            return false;
         });
 
-        $("input[name='password'],input[name='login']").keypress(function(e) {
-            if (e.keyCode == 13) {
-                e.preventDefault();
-                if (e.currentTarget.name == "login" ) {
-                    $("form.login input[name=password]").select();
-                } else {
-                    $("form.login").submit();
-                }
-            }
-        });
+//        $("input[name='password'],input[name='login']").keypress(function(e) {
+//            if (e.keyCode == 13) {
+//                e.preventDefault();
+//                if (e.currentTarget.name == "login" ) {
+//                    $("form.login input[name=password]").select();
+//                } else {
+//                    $("form.login").submit();
+//                }
+//            }
+//        });
     });
 })(jQuery);
