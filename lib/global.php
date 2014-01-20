@@ -9,17 +9,19 @@ function is_login() {
             if (mysql_num_rows($rez) == 1) {
                 $row = mysql_fetch_assoc($rez);
                 if ($_COOKIE['password'] == md5($row['login'].$row['password']) && $_SESSION['id'] == $row['id']) {
-                    SetCookie("login", "", time() - 1, '/');
-                    SetCookie("password", "", time() - 1, '/');
-                    SetCookie("login", $_COOKIE['login'], time() + 50000, '/'); //TODO: переправить на 8 часов
-                    SetCookie("password", $_COOKIE['password'], time() + 50000, '/');
+                    setcookie('login', null, -1, '/');
+                    setcookie('password', null, -1, '/');
+                    setcookie("login", $_COOKIE['login'], time() + 50000, '/'); //TODO: переправить на 8 часов
+                    setcookie("password", $_COOKIE['password'], time() + 50000, '/');
                     return true;
                 } else {
                     return false; //id куков не совпадает с id сессии
                 }
-            } else {
-                SetCookie("login", "", time() - 1, '/'); //левые куки
-                SetCookie("password", "", time() - 1, '/');
+            } else { //левые куки
+                unset($_COOKIE['login']);
+                unset($_COOKIE['password']);
+                setcookie('login', null, -1, '/');
+                setcookie('password', null, -1, '/');
                 return false;
             }
         } else {
@@ -28,8 +30,10 @@ function is_login() {
         }
     } else { //если сессии нет, то проверим существование cookie
         if (isset($_COOKIE['login']) && isset($_COOKIE['password'])) { //если куки существуют, то удаляем их
-                SetCookie("login", "", time() - 360000, '/');
-                SetCookie("password", "", time() - 360000, '/');
+                unset($_COOKIE['login']);
+                unset($_COOKIE['password']);
+                setcookie('login', null, -1, '/');
+                setcookie('password', null, -1, '/');
                 return false;
             } else {//если куки не существуют
                 return false;
@@ -64,10 +68,16 @@ function enter($login,$password) {
 }
 
 function out() {
-    unset($_SESSION['id']);
-    SetCookie("login", "", time() - 1, '/');
-    SetCookie("password", "", time() - 1, '/');
-    header('Location: login.php');
+    if (isset($_SESSION['id'])) {
+        unset($_SESSION['id']);
+    }
+    if (isset($_COOKIE['login']) && isset($_COOKIE['password'])) {
+        unset($_COOKIE['login']);
+        unset($_COOKIE['password']);
+        setcookie('login', null, -1, '/');
+        setcookie('password', null, -1, '/');
+        header('Location: login.php'); //TODO: Не использовать редирект в будушем
+    }
 }
 
 function is_admin() {
